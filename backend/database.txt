@@ -1,0 +1,11 @@
+1. Zainstaluj MongoDB: https://www.mongodb.com/try/download/community
+2. Po instalacji kliknik plusa przy Connetion i stwórz o nazwie np. Dentica
+3. Podmień main.py na nowy
+4. zainstaluj w terminalu: pip install pymongo
+5. Odpal backend:
+Uruchomienie backendu: przejdz w cmd do folderu backend i wpisz: uvicorn main:app --reload
+6. Odpal w przeglądarce, żeby sprawdzić czy backend ci działa: http://127.0.0.1:8000/docs
+8. Odpal frontend:
+Uruchomienie frontu: przejdz w cmd do folderu frontend i wpis w terminalu npm run dev
+Użyj wszytkich możliwych opcji - dodaj lekarza, stwórz konto (jako admin muszisz pozniej przejsc do MongoDB Compass i dentica_db i zmienić tam w users role)
+Podczas przeklikiwania strony baza stworzy się sama automatycznie

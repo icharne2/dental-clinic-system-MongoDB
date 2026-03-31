@@ -1,0 +1,254 @@
+"use client";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Trash2, Calendar, Stethoscope, Search, CheckCircle,
+  AlertCircle, ChevronRight, ChevronLeft, Clock, Activity,
+  CalendarCheck, Sparkles, X, History
+} from "lucide-react";
+
+export default function DashboardPage() {
+  const [mounted, setMounted] = useState(false);
+  const [notification, setNotification] = useState<{ message: string; type: "success" | "error" } | null>(null);
+  const [showConfirmCancel, setShowConfirmCancel] = useState(false);
+  const [showConfirmBook, setShowConfirmBook] = useState(false);
+  const [appToCancel, setAppToCancel] = useState<{ appId: string; slotId: string } | null>(null);
+  const [slotToBook, setSlotToBook] = useState<string | null>(null);
+
+  const [dentists, setDentists] = useState<any[]>([]);
+  const [slots, setSlots] = useState<any[]>([]);
+  const [appointments, setAppointments] = useState<any[]>([]);
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
+  const [selectedDentistId, setSelectedDentistId] = useState<string | null>(null);
+  const [selectedServiceName, setSelectedServiceName] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [dentistPage, setDentistPage] = useState(1);
+  const dentistsPerPage = 4;
+  const [slotPage, setSlotPage] = useState(1);
+  const slotsPerPage = 6;
+  const [appPage, setAppPage] = useState(1);
+  const appsPerPage = 5;
+
+  const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("userRole")?.trim().toLowerCase() || "patient";
+    if (!token) {
+      router.push("/auth");
+    } else {
+      setUserName(localStorage.getItem("userName") || "Pacjencie");
+      setUserRole(role);
+      fetchData();
+    }
+  }, [router]);
+
+  const fetchData = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    try {
+      const [resApps, resDentists, resSlots] = await Promise.all([
+        fetch("http://127.0.0.1:8000/appointments", { headers: { Authorization: `Bearer ${token}` } }),
+        fetch("http://127.0.0.1:8000/dentists"),
+        fetch("http://127.0.0.1:8000/slots")
+      ]);
+      if (resApps.ok) setAppointments(await resApps.json());
+      if (resDentists.ok) setDentists(await resDentists.json());
+      if (resSlots.ok) setSlots(await resSlots.json());
+    } catch (err) { notify("Błąd synchronizacji danych.", "error"); }
+  };
+
+  const notify = (message: string, type: "success" | "error" = "success") => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
+
+  const normalizeText = (value: any) => String(value ?? "").trim().toLowerCase();
+
+  const searchedDentists = useMemo(() => {
+    return dentists.filter((d: any) => {
+      const fullName = `${d.first_name} ${d.last_name}`.toLowerCase();
+      return fullName.includes(searchTerm.toLowerCase()) || d.specialization?.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+  }, [dentists, searchTerm]);
+
+  const currentDentists = searchedDentists.slice((dentistPage - 1) * dentistsPerPage, dentistPage * dentistsPerPage);
+  const totalDentistPages = Math.ceil(searchedDentists.length / dentistsPerPage);
+
+  const filteredSlots = useMemo(() => {
+    if (!selectedDentistId || !selectedServiceName) return [];
+    return slots.filter((s: any) => {
+      const isSameDentist = String(s.dentist_id) === String(selectedDentistId);
+      const isSameService = normalizeText(s.service_name) === normalizeText(selectedServiceName);
+      return isSameDentist && isSameService;
+    });
+  }, [slots, selectedDentistId, selectedServiceName]);
+
+  const currentSlots = filteredSlots.slice((slotPage - 1) * slotsPerPage, slotPage * slotsPerPage);
+  const totalSlotPages = Math.ceil(filteredSlots.length / slotsPerPage);
+
+  const currentApps = appointments.slice((appPage - 1) * appsPerPage, appPage * appsPerPage);
+  const totalAppPages = Math.ceil(appointments.length / appsPerPage);
+
+  const proceedWithBooking = async () => {
+    if (!slotToBook) return;
+    const res = await fetch(`http://127.0.0.1:8000/book/${slotToBook}`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    if (res.ok) { notify("Wizyta zarezerwowana!"); fetchData(); }
+    setShowConfirmBook(false);
+  };
+
+  const proceedWithCancellation = async () => {
+    if (!appToCancel) return;
+    const res = await fetch(`http://127.0.0.1:8000/admin/cancel/${appToCancel.appId}/${appToCancel.slotId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    if (res.ok) { notify("Wizyta anulowana."); fetchData(); }
+    setShowConfirmCancel(false);
+  };
+
+  if (!mounted) return null;
+
+  return (
+    <main className="min-h-screen bg-[#F8FAFC] font-sans text-slate-900 pb-20" suppressHydrationWarning>
+      {/* HEADER */}
+      <header className="bg-white/80 backdrop-blur-md sticky top-0 z-[100] border-b border-slate-100">
+        <div className="max-w-[1600px] mx-auto px-6 py-5 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+             <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+                <Calendar className="text-white w-6 h-6" />
+             </div>
+             <h1 className="text-xl font-black uppercase text-slate-900">Dentica</h1>
+          </div>
+          <div className="flex gap-4">
+            {userRole === "admin" && (
+              <button onClick={() => router.push("/admin")} className="px-5 py-2.5 rounded-xl bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 transition-all">Panel Admina</button>
+            )}
+            <button onClick={() => { localStorage.clear(); router.push("/"); }} className="px-5 py-2.5 rounded-xl bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-widest hover:bg-red-100 transition-all">Wyloguj</button>
+          </div>
+        </div>
+      </header>
+
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-12 mt-10 space-y-12">
+        <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="rounded-[3rem] bg-slate-900 p-8 lg:p-16 text-white shadow-2xl relative overflow-hidden">
+          <h2 className="text-4xl lg:text-5xl font-black mb-4 uppercase">Witaj, {userName}!</h2>
+          <p className="text-slate-300 text-lg mb-8 font-medium italic">Wybierz specjalistę i umów się na wizytę.</p>
+          <Sparkles className="absolute right-10 top-10 text-blue-500/20 w-32 h-32" />
+        </motion.section>
+
+        <div className="grid lg:grid-cols-12 gap-10">
+          <section className="lg:col-span-4 space-y-6">
+            <h3 className="text-xl font-black uppercase tracking-tight flex items-center gap-3"><Stethoscope className="text-blue-600" /> Nasi Eksperci</h3>
+            <div className="relative">
+              <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 w-5 h-5" />
+              <input type="text" placeholder="Szukaj lekarza..." className="w-full bg-white border border-slate-100 p-5 pl-14 rounded-[2rem] text-sm font-bold outline-none focus:ring-4 focus:ring-blue-100/30 transition-all shadow-sm" value={searchTerm} onChange={(e) => {setSearchTerm(e.target.value); setDentistPage(1);}} />
+            </div>
+
+            <div className="space-y-4">
+              {currentDentists.map((d: any) => (
+                <button
+                  key={d.id}
+                  onClick={() => { setSelectedDentistId(d.id); setSelectedServiceName(null); setSlotPage(1); }}
+                  className={`w-full text-left p-6 rounded-[2.5rem] border transition-all flex items-center gap-5 ${selectedDentistId === d.id ? "bg-blue-600 border-blue-600 text-white shadow-xl" : "bg-white border-slate-100 hover:border-blue-400"}`}
+                >
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-black text-xl ${selectedDentistId === d.id ? "bg-white/20" : "bg-blue-50 text-blue-600"}`}>{d.first_name[0]}{d.last_name[0]}</div>
+                  <div className="flex-1 uppercase leading-tight">
+                    <p className={`text-[9px] font-black uppercase tracking-widest mb-1 ${selectedDentistId === d.id ? "text-blue-100" : "text-blue-600"}`}>{d.specialization}</p>
+                    <p className="text-lg font-black tracking-tight uppercase leading-none">lek. dent. {d.first_name} {d.last_name}</p>
+                  </div>
+                  <ChevronRight size={18} />
+                </button>
+              ))}
+              <div className="flex justify-between items-center px-4">
+                 <button disabled={dentistPage === 1} onClick={() => setDentistPage(p => p - 1)} className="p-2 disabled:opacity-20"><ChevronLeft/></button>
+                 <span className="text-[10px] font-black text-slate-400 uppercase">{dentistPage} / {totalDentistPages || 1}</span>
+                 <button disabled={dentistPage === totalDentistPages} onClick={() => setDentistPage(p => p + 1)} className="p-2 disabled:opacity-20"><ChevronRight/></button>
+              </div>
+            </div>
+          </section>
+
+          <section className="lg:col-span-8 space-y-10">
+            <div className="space-y-6">
+              <h3 className="text-xl font-black uppercase tracking-tight flex items-center gap-3"><Activity className="text-blue-600" /> Wybierz zabieg</h3>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {selectedDentistId ? (
+                   dentists.find(d => d.id === selectedDentistId)?.services?.map((s: any, idx: number) => (
+                    <button key={idx} onClick={() => {setSelectedServiceName(s.name); setSlotPage(1);}} className={`p-6 rounded-[2rem] border text-left transition-all flex justify-between items-center ${selectedServiceName === s.name ? "bg-blue-600 border-blue-600 text-white shadow-lg" : "bg-white border-slate-100 hover:border-blue-400 shadow-sm"}`}>
+                      <span className="font-bold text-sm uppercase">{s.name}</span>
+                      <span className={`text-sm font-black ${selectedServiceName === s.name ? "text-white" : "text-blue-600"}`}>{s.price} zł</span>
+                    </button>
+                  ))
+                ) : ( <div className="col-span-full p-12 bg-white rounded-[3rem] border border-dashed border-slate-200 text-center text-slate-400 font-medium uppercase tracking-widest text-[10px]">Wybierz lekarza z listy.</div> )}
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <h3 className="text-xl font-black uppercase tracking-tight flex items-center gap-3"><Clock className="text-emerald-500" /> Dostępne godziny</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {currentSlots.length > 0 ? currentSlots.map((s: any) => (
+                  <motion.button whileHover={{ y: -5 }} key={s.id} onClick={() => {setSlotToBook(s.id); setShowConfirmBook(true);}} className="bg-white border border-slate-100 p-8 rounded-[2.5rem] text-left hover:border-emerald-400 transition-all shadow-sm group">
+                    <div className="text-[9px] font-black uppercase text-emerald-500 tracking-widest mb-4">Wolny termin</div>
+                    <div className="text-4xl font-black text-slate-900 tracking-tighter mb-1 group-hover:text-emerald-600">{(s.start_time || "").slice(0, 5)}</div>
+                    <div className="text-xs font-bold text-slate-400 uppercase">{s.slot_date}</div>
+                    <div className="mt-8 w-full bg-emerald-600 text-white text-center py-4 rounded-2xl text-[10px] font-black uppercase shadow-lg">Rezerwuj</div>
+                  </motion.button>
+                )) : ( <div className="col-span-full p-12 bg-white rounded-[3rem] text-center text-slate-400 italic uppercase text-[10px] tracking-widest">Wybierz usługę, aby zobaczyć terminy.</div> )}
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section className="space-y-8 pt-10">
+          <h3 className="text-2xl font-black uppercase text-slate-900">Twoje nadchodzące wizyty</h3>
+          <div className="bg-white rounded-[3rem] border border-slate-100 shadow-xl overflow-hidden">
+            <table className="w-full text-left uppercase">
+              <thead className="bg-slate-50 text-[10px] font-black text-slate-400 border-b border-slate-100"><tr className="tracking-widest"><th className="px-10 py-8">Lekarz</th><th className="px-10 py-8 text-center">Data i Godzina</th><th className="px-10 py-8 text-center">Usługa</th><th className="px-10 py-8 text-right">Opcje</th></tr></thead>
+              <tbody className="divide-y divide-slate-50 text-[12px] font-black">
+                {currentApps.map((a: any) => (
+                  <tr key={a.id} className="hover:bg-slate-50/30 transition-colors">
+                    <td className="px-10 py-8 text-slate-800">lek. dent. {a.dentist_name}</td>
+                    <td className="px-10 py-8 text-center"><span className="text-slate-900 block">{a.slot_date}</span><span className="text-[10px] text-blue-600">godz. {(a.start_time || "").slice(0, 5)}</span></td>
+                    <td className="px-10 py-8 text-center"><span className="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[9px]">{a.service_name || "Konsultacja"}</span></td>
+                    <td className="px-10 py-8 text-right">
+                       <button onClick={() => {setAppToCancel({appId: a.id, slotId: a.slot_id}); setShowConfirmCancel(true);}} className="p-3 text-slate-300 hover:text-red-500 transition-all"><Trash2 size={20} /></button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {appointments.length === 0 && <div className="py-20 text-center text-slate-400 uppercase text-[10px] tracking-widest font-bold">Brak wizyt</div>}
+          </div>
+        </section>
+      </div>
+
+      <AnimatePresence>
+        {(showConfirmBook || showConfirmCancel) && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-md">
+            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white w-full max-w-md p-12 rounded-[4rem] text-center shadow-2xl">
+              <h3 className="text-3xl font-black uppercase text-slate-900 mb-6">{showConfirmBook ? "Umówić?" : "Anulować?"}</h3>
+              <div className="flex flex-col gap-4">
+                <button onClick={showConfirmBook ? proceedWithBooking : proceedWithCancellation} className={`w-full py-5 rounded-3xl text-white font-black uppercase shadow-xl ${showConfirmBook ? 'bg-emerald-600' : 'bg-red-600'}`}>Tak, potwierdzam</button>
+                <button onClick={() => {setShowConfirmBook(false); setShowConfirmCancel(false);}} className="w-full py-5 rounded-3xl bg-slate-100 text-slate-400 font-black uppercase">Wróć</button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {notification && (
+          <motion.div initial={{ opacity: 0, y: 50, x: "-50%" }} animate={{ opacity: 1, y: 0, x: "-50%" }} exit={{ opacity: 0, x: "-50%" }} className={`fixed bottom-10 left-1/2 z-[300] px-8 py-5 rounded-[2.5rem] shadow-2xl text-white font-black uppercase text-[10px] tracking-widest ${notification.type === "success" ? "bg-emerald-600" : "bg-red-600"}`}>
+            {notification.message}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </main>
+  );
+}
