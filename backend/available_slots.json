@@ -1,0 +1,97 @@
+[
+  { "dentist_id": "69cd31789032ae9abbe40e59", "dentist_name": "Kowalska", "slot_date": "2026-04-20", "start_time": "08:00", "is_available": true, "service_name": "PRZEGLAD STOMATOLOGICZNY" },
+  { "dentist_id": "69cd31789032ae9abbe40e59", "dentist_name": "Kowalska", "slot_date": "2026-04-20", "start_time": "12:00", "is_available": true, "service_name": "PRZEGLAD STOMATOLOGICZNY" },
+  { "dentist_id": "69cd31789032ae9abbe40e59", "dentist_name": "Kowalska", "slot_date": "2026-04-20", "start_time": "16:00", "is_available": true, "service_name": "PRZEGLAD STOMATOLOGICZNY" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5a", "dentist_name": "Nowak", "slot_date": "2026-04-20", "start_time": "08:00", "is_available": true, "service_name": "LECZENIE KANALOWE JEDNOKANALOWE" },
+  { "dentist_id": "69cd31789032ae9abbe40e5a", "dentist_name": "Nowak", "slot_date": "2026-04-20", "start_time": "12:00", "is_available": true, "service_name": "LECZENIE KANALOWE JEDNOKANALOWE" },
+  { "dentist_id": "69cd31789032ae9abbe40e5a", "dentist_name": "Nowak", "slot_date": "2026-04-20", "start_time": "16:00", "is_available": true, "service_name": "LECZENIE KANALOWE JEDNOKANALOWE" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5b", "dentist_name": "Wisniewska", "slot_date": "2026-04-20", "start_time": "08:00", "is_available": true, "service_name": "KONSULTACJA ORTODONTYCZNA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5b", "dentist_name": "Wisniewska", "slot_date": "2026-04-20", "start_time": "12:00", "is_available": true, "service_name": "KONSULTACJA ORTODONTYCZNA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5b", "dentist_name": "Wisniewska", "slot_date": "2026-04-20", "start_time": "16:00", "is_available": true, "service_name": "KONSULTACJA ORTODONTYCZNA" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5c", "dentist_name": "Zielinski", "slot_date": "2026-04-20", "start_time": "08:00", "is_available": true, "service_name": "EKSTRAKCJA ZEBA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5c", "dentist_name": "Zielinski", "slot_date": "2026-04-20", "start_time": "12:00", "is_available": true, "service_name": "EKSTRAKCJA ZEBA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5c", "dentist_name": "Zielinski", "slot_date": "2026-04-20", "start_time": "16:00", "is_available": true, "service_name": "EKSTRAKCJA ZEBA" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5d", "dentist_name": "Wojcik", "slot_date": "2026-04-20", "start_time": "08:00", "is_available": true, "service_name": "KORONA PORCELANOWA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5d", "dentist_name": "Wojcik", "slot_date": "2026-04-20", "start_time": "12:00", "is_available": true, "service_name": "KORONA PORCELANOWA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5d", "dentist_name": "Wojcik", "slot_date": "2026-04-20", "start_time": "16:00", "is_available": true, "service_name": "KORONA PORCELANOWA" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5e", "dentist_name": "Kaminski", "slot_date": "2026-04-20", "start_time": "08:00", "is_available": true, "service_name": "IMPLANT STOMATOLOGICZNY (WSZCZEPIENIE)" },
+  { "dentist_id": "69cd31789032ae9abbe40e5e", "dentist_name": "Kaminski", "slot_date": "2026-04-20", "start_time": "12:00", "is_available": true, "service_name": "IMPLANT STOMATOLOGICZNY (WSZCZEPIENIE)" },
+  { "dentist_id": "69cd31789032ae9abbe40e5e", "dentist_name": "Kaminski", "slot_date": "2026-04-20", "start_time": "16:00", "is_available": true, "service_name": "IMPLANT STOMATOLOGICZNY (WSZCZEPIENIE)" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5f", "dentist_name": "Lewandowska", "slot_date": "2026-04-20", "start_time": "08:00", "is_available": true, "service_name": "KIRETAZ ZAMKNIETY" },
+  { "dentist_id": "69cd31789032ae9abbe40e5f", "dentist_name": "Lewandowska", "slot_date": "2026-04-20", "start_time": "12:00", "is_available": true, "service_name": "KIRETAZ ZAMKNIETY" },
+  { "dentist_id": "69cd31789032ae9abbe40e5f", "dentist_name": "Lewandowska", "slot_date": "2026-04-20", "start_time": "16:00", "is_available": true, "service_name": "KIRETAZ ZAMKNIETY" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e60", "dentist_name": "Dabrowska", "slot_date": "2026-04-20", "start_time": "08:00", "is_available": true, "service_name": "WIZYTA ADAPTACYJNA DZIECKA" },
+  { "dentist_id": "69cd31789032ae9abbe40e60", "dentist_name": "Dabrowska", "slot_date": "2026-04-20", "start_time": "12:00", "is_available": true, "service_name": "WIZYTA ADAPTACYJNA DZIECKA" },
+  { "dentist_id": "69cd31789032ae9abbe40e60", "dentist_name": "Dabrowska", "slot_date": "2026-04-20", "start_time": "16:00", "is_available": true, "service_name": "WIZYTA ADAPTACYJNA DZIECKA" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e59", "dentist_name": "Kowalska", "slot_date": "2026-04-21", "start_time": "08:00", "is_available": true, "service_name": "PRZEGLAD STOMATOLOGICZNY" },
+  { "dentist_id": "69cd31789032ae9abbe40e59", "dentist_name": "Kowalska", "slot_date": "2026-04-21", "start_time": "12:00", "is_available": true, "service_name": "PRZEGLAD STOMATOLOGICZNY" },
+  { "dentist_id": "69cd31789032ae9abbe40e59", "dentist_name": "Kowalska", "slot_date": "2026-04-21", "start_time": "16:00", "is_available": true, "service_name": "PRZEGLAD STOMATOLOGICZNY" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5a", "dentist_name": "Nowak", "slot_date": "2026-04-21", "start_time": "08:00", "is_available": true, "service_name": "LECZENIE KANALOWE JEDNOKANALOWE" },
+  { "dentist_id": "69cd31789032ae9abbe40e5a", "dentist_name": "Nowak", "slot_date": "2026-04-21", "start_time": "12:00", "is_available": true, "service_name": "LECZENIE KANALOWE JEDNOKANALOWE" },
+  { "dentist_id": "69cd31789032ae9abbe40e5a", "dentist_name": "Nowak", "slot_date": "2026-04-21", "start_time": "16:00", "is_available": true, "service_name": "LECZENIE KANALOWE JEDNOKANALOWE" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5b", "dentist_name": "Wisniewska", "slot_date": "2026-04-21", "start_time": "08:00", "is_available": true, "service_name": "KONSULTACJA ORTODONTYCZNA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5b", "dentist_name": "Wisniewska", "slot_date": "2026-04-21", "start_time": "12:00", "is_available": true, "service_name": "KONSULTACJA ORTODONTYCZNA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5b", "dentist_name": "Wisniewska", "slot_date": "2026-04-21", "start_time": "16:00", "is_available": true, "service_name": "KONSULTACJA ORTODONTYCZNA" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5c", "dentist_name": "Zielinski", "slot_date": "2026-04-21", "start_time": "08:00", "is_available": true, "service_name": "EKSTRAKCJA ZEBA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5c", "dentist_name": "Zielinski", "slot_date": "2026-04-21", "start_time": "12:00", "is_available": true, "service_name": "EKSTRAKCJA ZEBA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5c", "dentist_name": "Zielinski", "slot_date": "2026-04-21", "start_time": "16:00", "is_available": true, "service_name": "EKSTRAKCJA ZEBA" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5d", "dentist_name": "Wojcik", "slot_date": "2026-04-21", "start_time": "08:00", "is_available": true, "service_name": "KORONA PORCELANOWA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5d", "dentist_name": "Wojcik", "slot_date": "2026-04-21", "start_time": "12:00", "is_available": true, "service_name": "KORONA PORCELANOWA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5d", "dentist_name": "Wojcik", "slot_date": "2026-04-21", "start_time": "16:00", "is_available": true, "service_name": "KORONA PORCELANOWA" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5e", "dentist_name": "Kaminski", "slot_date": "2026-04-21", "start_time": "08:00", "is_available": true, "service_name": "IMPLANT STOMATOLOGICZNY (WSZCZEPIENIE)" },
+  { "dentist_id": "69cd31789032ae9abbe40e5e", "dentist_name": "Kaminski", "slot_date": "2026-04-21", "start_time": "12:00", "is_available": true, "service_name": "IMPLANT STOMATOLOGICZNY (WSZCZEPIENIE)" },
+  { "dentist_id": "69cd31789032ae9abbe40e5e", "dentist_name": "Kaminski", "slot_date": "2026-04-21", "start_time": "16:00", "is_available": true, "service_name": "IMPLANT STOMATOLOGICZNY (WSZCZEPIENIE)" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5f", "dentist_name": "Lewandowska", "slot_date": "2026-04-21", "start_time": "08:00", "is_available": true, "service_name": "KIRETAZ ZAMKNIETY" },
+  { "dentist_id": "69cd31789032ae9abbe40e5f", "dentist_name": "Lewandowska", "slot_date": "2026-04-21", "start_time": "12:00", "is_available": true, "service_name": "KIRETAZ ZAMKNIETY" },
+  { "dentist_id": "69cd31789032ae9abbe40e5f", "dentist_name": "Lewandowska", "slot_date": "2026-04-21", "start_time": "16:00", "is_available": true, "service_name": "KIRETAZ ZAMKNIETY" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e60", "dentist_name": "Dabrowska", "slot_date": "2026-04-21", "start_time": "08:00", "is_available": true, "service_name": "WIZYTA ADAPTACYJNA DZIECKA" },
+  { "dentist_id": "69cd31789032ae9abbe40e60", "dentist_name": "Dabrowska", "slot_date": "2026-04-21", "start_time": "12:00", "is_available": true, "service_name": "WIZYTA ADAPTACYJNA DZIECKA" },
+  { "dentist_id": "69cd31789032ae9abbe40e60", "dentist_name": "Dabrowska", "slot_date": "2026-04-21", "start_time": "16:00", "is_available": true, "service_name": "WIZYTA ADAPTACYJNA DZIECKA" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e59", "dentist_name": "Kowalska", "slot_date": "2026-04-22", "start_time": "08:00", "is_available": true, "service_name": "PRZEGLAD STOMATOLOGICZNY" },
+  { "dentist_id": "69cd31789032ae9abbe40e59", "dentist_name": "Kowalska", "slot_date": "2026-04-22", "start_time": "12:00", "is_available": true, "service_name": "PRZEGLAD STOMATOLOGICZNY" },
+  { "dentist_id": "69cd31789032ae9abbe40e59", "dentist_name": "Kowalska", "slot_date": "2026-04-22", "start_time": "16:00", "is_available": true, "service_name": "PRZEGLAD STOMATOLOGICZNY" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5a", "dentist_name": "Nowak", "slot_date": "2026-04-22", "start_time": "08:00", "is_available": true, "service_name": "LECZENIE KANALOWE JEDNOKANALOWE" },
+  { "dentist_id": "69cd31789032ae9abbe40e5a", "dentist_name": "Nowak", "slot_date": "2026-04-22", "start_time": "12:00", "is_available": true, "service_name": "LECZENIE KANALOWE JEDNOKANALOWE" },
+  { "dentist_id": "69cd31789032ae9abbe40e5a", "dentist_name": "Nowak", "slot_date": "2026-04-22", "start_time": "16:00", "is_available": true, "service_name": "LECZENIE KANALOWE JEDNOKANALOWE" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5b", "dentist_name": "Wisniewska", "slot_date": "2026-04-22", "start_time": "08:00", "is_available": true, "service_name": "KONSULTACJA ORTODONTYCZNA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5b", "dentist_name": "Wisniewska", "slot_date": "2026-04-22", "start_time": "12:00", "is_available": true, "service_name": "KONSULTACJA ORTODONTYCZNA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5b", "dentist_name": "Wisniewska", "slot_date": "2026-04-22", "start_time": "16:00", "is_available": true, "service_name": "KONSULTACJA ORTODONTYCZNA" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5c", "dentist_name": "Zielinski", "slot_date": "2026-04-22", "start_time": "08:00", "is_available": true, "service_name": "EKSTRAKCJA ZEBA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5c", "dentist_name": "Zielinski", "slot_date": "2026-04-22", "start_time": "12:00", "is_available": true, "service_name": "EKSTRAKCJA ZEBA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5c", "dentist_name": "Zielinski", "slot_date": "2026-04-22", "start_time": "16:00", "is_available": true, "service_name": "EKSTRAKCJA ZEBA" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5d", "dentist_name": "Wojcik", "slot_date": "2026-04-22", "start_time": "08:00", "is_available": true, "service_name": "KORONA PORCELANOWA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5d", "dentist_name": "Wojcik", "slot_date": "2026-04-22", "start_time": "12:00", "is_available": true, "service_name": "KORONA PORCELANOWA" },
+  { "dentist_id": "69cd31789032ae9abbe40e5d", "dentist_name": "Wojcik", "slot_date": "2026-04-22", "start_time": "16:00", "is_available": true, "service_name": "KORONA PORCELANOWA" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5e", "dentist_name": "Kaminski", "slot_date": "2026-04-22", "start_time": "08:00", "is_available": true, "service_name": "IMPLANT STOMATOLOGICZNY (WSZCZEPIENIE)" },
+  { "dentist_id": "69cd31789032ae9abbe40e5e", "dentist_name": "Kaminski", "slot_date": "2026-04-22", "start_time": "12:00", "is_available": true, "service_name": "IMPLANT STOMATOLOGICZNY (WSZCZEPIENIE)" },
+  { "dentist_id": "69cd31789032ae9abbe40e5e", "dentist_name": "Kaminski", "slot_date": "2026-04-22", "start_time": "16:00", "is_available": true, "service_name": "IMPLANT STOMATOLOGICZNY (WSZCZEPIENIE)" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e5f", "dentist_name": "Lewandowska", "slot_date": "2026-04-22", "start_time": "08:00", "is_available": true, "service_name": "KIRETAZ ZAMKNIETY" },
+  { "dentist_id": "69cd31789032ae9abbe40e5f", "dentist_name": "Lewandowska", "slot_date": "2026-04-22", "start_time": "12:00", "is_available": true, "service_name": "KIRETAZ ZAMKNIETY" },
+  { "dentist_id": "69cd31789032ae9abbe40e5f", "dentist_name": "Lewandowska", "slot_date": "2026-04-22", "start_time": "16:00", "is_available": true, "service_name": "KIRETAZ ZAMKNIETY" },
+
+  { "dentist_id": "69cd31789032ae9abbe40e60", "dentist_name": "Dabrowska", "slot_date": "2026-04-22", "start_time": "08:00", "is_available": true, "service_name": "WIZYTA ADAPTACYJNA DZIECKA" },
+  { "dentist_id": "69cd31789032ae9abbe40e60", "dentist_name": "Dabrowska", "slot_date": "2026-04-22", "start_time": "12:00", "is_available": true, "service_name": "WIZYTA ADAPTACYJNA DZIECKA" },
+  { "dentist_id": "69cd31789032ae9abbe40e60", "dentist_name": "Dabrowska", "slot_date": "2026-04-22", "start_time": "16:00", "is_available": true, "service_name": "WIZYTA ADAPTACYJNA DZIECKA" }
+]
