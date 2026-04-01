@@ -6,14 +6,11 @@
   </component>
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseAssistantManager">
     <assistants>
-      <assistant-state connection-id="17b7516b-5699-4d81-b3c5-365ad05b85bf" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
-        <tools />
-      </assistant-state>
       <assistant-state connection-id="17b7516b-5699-4d81-b3c5-365ad05b85bf" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="5DB9BAA50C07457FBFD1992DFF9A63D7" availability="AVAILABLE" acknowledgement="ENGAGED" selected="true">
         <chats>
           <chat id="5DB9BAA50C07457FBFD1992DFF9A63D7" title="" session-signature="" timestamp="1774799338430">
@@ -21,6 +18,9 @@
             <context provider="" profile="" model="" action="" interactive="true" />
           </chat>
         </chats>
+        <tools />
+      </assistant-state>
+      <assistant-state connection-id="17b7516b-5699-4d81-b3c5-365ad05b85bf" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
         <tools />
       </assistant-state>
     </assistants>
@@ -36,27 +36,14 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="17b7516b-5699-4d81-b3c5-365ad05b85bf">
-      <console name="dental_clinic_db" type="STANDARD" schema="dental_clinic_db" session="Main"><![CDATA[INSERT INTO public.available_slots (dentist_id, slot_date, start_time, end_time, is_available, service_name)
-SELECT
-    ds.dentist_id,                         -- Pobiera ID lekarza z tabeli powiązań
-    CURRENT_DATE + i,                      -- Ustala datę: dzisiaj + 'i' dni
-    ('08:00:00'::time + (j * INTERVAL '1 hour'))::time,   -- Godzina rozpoczęcia (co godzinę od 08:00)
-    ('08:30:00'::time + (j * INTERVAL '1 hour'))::time,   -- Godzina zakończenia (wizyta trwa 30 min)
-    TRUE,                                  -- Ustawia termin jako dostępny (wolny)
-    s.name                                 -- Pobiera idealną nazwę usługi prosto z cennika (services)
-FROM public.dentist_services ds
-JOIN public.services s ON ds.service_id = s.id    -- Łączymy tabele, żeby wiedzieć, który lekarz co robi
-CROSS JOIN generate_series(1, 7) AS i      
-CROSS JOIN generate_series(0, 8) AS j;]]></console>
+      <console name="dental_clinic_db" type="STANDARD" schema="dental_clinic_db" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="17b7516b-5699-4d81-b3c5-365ad05b85bf" object-ref="consoles/dental_clinic_db" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabasePrerequisiteManager">
     <prerequisites />

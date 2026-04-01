@@ -170,13 +170,20 @@ def get_user_appointments(user_id: str = Depends(get_current_user_id)):
 
 @app.post("/book/{slot_id}")
 def book_appointment(slot_id: str, user_id: str = Depends(get_current_user_id)):
+    # walidacja ID
     if not ObjectId.is_valid(slot_id): raise HTTPException(status_code=400)
+
+    # sprawdzenie czy slot nadal jest wolny
     slot = db.available_slots.find_one({"_id": ObjectId(slot_id), "is_available": True})
     if not slot: raise HTTPException(status_code=400, detail="Termin już zajęty")
 
+    # pobranie danych pacjenta
     user = db.users.find_one({"_id": ObjectId(user_id)})
 
+    # zmiana statusu slotu na zajęty
     db.available_slots.update_one({"_id": ObjectId(slot_id)}, {"$set": {"is_available": False}})
+
+    # utworzenie potwierdzonej wizyty
     db.appointments.insert_one({
         "user_id": user_id,
         "patient_name": f"{user['first_name']} {user['last_name']}",
@@ -193,22 +200,39 @@ def book_appointment(slot_id: str, user_id: str = Depends(get_current_user_id)):
 @app.post("/login")
 async def login(request: Request):
     data = await request.json()
+    # Szukanie użytkownika w bazie po adresie e-mail
     user = db.users.find_one({"email": data.get("email", "").strip()})
+
+    # czy użytkownik istnieje i czy hasło jest poprawne
     if user and bcrypt.checkpw(data.get("password").encode('utf-8'), user['password_hash'].encode('utf-8')):
+        # generowanie tokena JWT
         token = jwt.encode(
-            {"user_id": str(user['_id']), "role": user['role'], "exp": datetime.utcnow().timestamp() + 86400},
+            {
+                "user_id": str(user['_id']),
+                "role": user['role'],
+                "exp": datetime.utcnow().timestamp() + 86400  # Token ważny 24h
+            },
             SECRET_KEY, algorithm="HS256"
         )
-        return {"token": token, "role": user['role'], "name": user['first_name']}
-    raise HTTPException(status_code=401, detail="Błędne dane logowania")
 
+        # przeslanie danych do frontendu
+        return {"token": token, "role": user['role'], "name": user['first_name']}
+
+    raise HTTPException(status_code=401, detail="Błędne dane logowania")
 
 @app.post("/register")
 async def register(request: Request):
     data = await request.json()
+
+    # szyfrowanie hasła
     hashed = bcrypt.hashpw(data['password'].encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+    # zapis nowego dokumentu w kolekcji users
     db.users.insert_one({
-        "first_name": data['first_name'], "last_name": data['last_name'],
-        "email": data['email'].strip(), "password_hash": hashed, "role": "patient"
+        "first_name": data['first_name'],
+        "last_name": data['last_name'],
+        "email": data['email'].strip(),
+        "password_hash": hashed,
+        "role": "patient"
     })
     return {"message": "OK"}
